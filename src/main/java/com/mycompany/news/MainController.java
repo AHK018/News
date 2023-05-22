@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
     public static Connection con;
-
+    IndexController ind=new IndexController();
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String Homepage(org.springframework.ui.Model object1) {
         MysqlConnection obj = new MysqlConnection();
         obj.MysqlConnection();
         con = obj.con;
-        IndexController ind=new IndexController();
         ind.information(object1);
         object1.addAttribute("flag",0);
         return "index";
@@ -29,9 +28,9 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String Loginpage(@RequestParam("Username") String Username, @RequestParam("Password") String Password, org.springframework.ui.Model object1) {
         object1.addAttribute("Username", Username);
-        IndexController ind=new IndexController();
         ind.information(object1);
-        object1.addAttribute("flag", 1);
+        LoginSignUp log=new LoginSignUp();
+        log.LoginSignUp(object1, Username, Password);
         return "index";
     }
     
@@ -39,7 +38,6 @@ public class MainController {
     @RequestMapping(value = "/register", method=RequestMethod.POST)
     public String google1(@RequestParam("Username") String Username, @RequestParam("Password") String Password,@RequestParam("Email") String Email,Model object1) {
         object1.addAttribute("Username", Username);
-        IndexController ind=new IndexController();
         ind.information(object1);
         object1.addAttribute("flag", 1);
         return "index";

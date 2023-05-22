@@ -461,10 +461,10 @@
                         </div>
                         <div class="pub-name-card">
                             <span class="pub-name"><% out.print(l2.get(i-2)); %></span>
-                            <span class="pub-desc" href="<% out.print(l4.get(i-2)); %>"></span><% out.print(l3.get(i-2));%></div>
+                            <a href="<% out.print(l4.get(i-2)); %>"> <span class="pub-desc"></span><% out.print(l3.get(i-2));%></div></a>
                         <div class="pub-name-card">
                             <span class="pub-name"><% out.print(l2.get(i-3)); %></span>
-                            <span class="pub-desc" href="<% out.print(l4.get(i-3)); %>"><% out.print(l3.get(i-3));%></span></div>
+                            <a href="<% out.print(l4.get(i-3)); %>"><span class="pub-desc"><% out.print(l3.get(i-3));%></span></div></a>
                     </div>
                 </div>
 

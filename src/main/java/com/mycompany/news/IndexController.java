@@ -19,7 +19,7 @@ public class IndexController {
     public void information(Model object1)
     {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            
             PreparedStatement stmt = con.prepareStatement("select * from topstories");
 
             List<String> l1 = new ArrayList<String>();

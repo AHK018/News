@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -423,7 +424,14 @@
         <% } %>
     <body class='flex'>
 
+<%
+            List<String> l1 = (List<String>) request.getAttribute("l1");
+            List<String> l2 = (List<String>) request.getAttribute("l2");
+            List<String> l3 = (List<String>) request.getAttribute("l3");
+            List<String> l4 = (List<String>) request.getAttribute("l4");
 
+            int i = l1.size() - 1;
+        %>
 
 
         <main>
@@ -443,20 +451,20 @@
                 <div class="card-i">
                     <div class="left-content">
                         <div class="img-dsc"></div>
-                        <span class="main-brand">?? BBC</span>
-                        <a href="#"><span class="card-headline">Arre ae vedya...</span></a>
+                        <span class="main-brand"><% out.print(l2.get(i)); %></span>
+                        <a href="<% out.print(l4.get(i)); %>"><span class="card-headline"><% out.print(l3.get(i));%></span></a>
                     </div>
                     <div class="pub-card-content">
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <a href="https://youtu.be/BsmRYjW4csw"><span class="pub-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptatibus odit eligendi voluptate iusto culpa iste nemo error saepe nulla.</span></a>
+                            <span class="pub-name"><% out.print(l2.get(i-1)); %></span>
+                            <a href="<% out.print(l4.get(i-1)); %>"><span class="pub-desc"><% out.print(l3.get(i-1));%></span></a>
                         </div>
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae accusamus quas necessitatibus, dolor dolorum similique.</span></div>
+                            <span class="pub-name"><% out.print(l2.get(i-2)); %></span>
+                            <span class="pub-desc" href="<% out.print(l4.get(i-2)); %>"></span><% out.print(l3.get(i-2));%></div>
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sed placeat consectetur fugiat, quis quia quidem dolorem omnis quibusdam reiciendis eos fugit unde blanditiis sunt!</span></div>
+                            <span class="pub-name"><% out.print(l2.get(i-3)); %></span>
+                            <span class="pub-desc" href="<% out.print(l4.get(i-3)); %>"><% out.print(l3.get(i-3));%></span></div>
                     </div>
                 </div>
 

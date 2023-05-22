@@ -26,7 +26,7 @@ public class MainController {
         return "index";
     }
     
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String Loginpage(@RequestParam("Username") String Username, @RequestParam("Password") String Password, org.springframework.ui.Model object1) {
         object1.addAttribute("Username", Username);
         IndexController ind=new IndexController();
@@ -36,7 +36,7 @@ public class MainController {
     }
     
     
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method=RequestMethod.POST)
     public String google1(@RequestParam("Username") String Username, @RequestParam("Password") String Password,@RequestParam("Email") String Email,Model object1) {
         object1.addAttribute("Username", Username);
         IndexController ind=new IndexController();

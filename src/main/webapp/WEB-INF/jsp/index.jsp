@@ -382,10 +382,45 @@
             padding-bottom: 10px;
             background: rgba(19, 1, 26, 0);
         }
+        
+        /* Media queries for different screen sizes */
+    @media screen and (max-width: 768px) {
+        main {
+            grid-template-columns: 1fr;
+        }
+
+        .main-card {
+            max-width: 100%;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .card-i {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .main-card {
+            top: 20px;
+        }
+    }
     </style>
-    <header>
-        <%@ include file="TopNavBar.jsp" %>
-    </header>
+     <% 
+            int j=(int) request.getAttribute("flag");
+            if(j==1)
+            {
+        %>
+        <header>
+        <%@include file="TopNavBar_1.jsp" %>
+        </header>
+        <% }
+        else{
+        %>
+        <header>
+            <%@include file="TopNavBar.jsp" %>
+        </header>
+        <% } %>
     <body class='flex'>
 
 

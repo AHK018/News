@@ -137,8 +137,8 @@
                 Login
             </div>
             <div></div>
-            <div class="login-form">
-                <form action="login" method="GET">
+            <div class="login-form" method="POST">
+                <form action="login" method="POST">
                     <h2 style="color:black;">Login</h2>
                     <input type="Username" placeholder="Username" name="Username">
                     <input type="password" placeholder="Password" name="Password">
@@ -150,8 +150,8 @@
                     </p>
                 </form>
             </div>
-            <div class="register-form">
-                <form action="register">
+            <div class="register-form" method="post">
+                <form action="register" methos="post">
                     <h2 style="color:black;">Register</h2>
                     <input type="text" placeholder="Username">
                     <input type="email" placeholder="Email">

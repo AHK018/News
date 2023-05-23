@@ -140,7 +140,7 @@
             <div class="login-form" method="POST">
                 <form action="login" method="POST">
                     <h2 style="color:black;">Login</h2>
-                    <input type="Username" placeholder="Username" name="Username">
+                    <input type="Email" placeholder="Email" name="Email">
                     <input type="password" placeholder="Password" name="Password">
                     <button type="submit" >Login</button>
 

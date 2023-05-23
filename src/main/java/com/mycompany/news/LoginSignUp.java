@@ -17,21 +17,26 @@ import org.springframework.ui.Model;
  */
 public class LoginSignUp {
     
-    public String LoginSignUp(Model object1,String str,String pass)
+    public String LoginSignUp(Model object1,String mail,String pass)
     {
         try {
             
-            PreparedStatement stmt = con.prepareStatement("select * from user where name=? and password=?");
-            stmt.setString(1, str);
+            PreparedStatement stmt = con.prepareStatement("select * from user where email=? and password=?");
+            stmt.setString(1, mail);
             stmt.setString(2, pass);
             ResultSet rs = stmt.executeQuery();
-            String l = "", m = "";
+            String l = "", m = "",z="";
             while (rs.next()) {
-                m = rs.getString("name");
+                m = rs.getString("email");
                 l = rs.getString("password");
+                z = rs.getString("name");
             }
-            if (m.equals(str) && l.equals(pass)) {
+            if (m.equals(mail) && l.equals(pass)) {
                 object1.addAttribute("flag", 1);
+                object1.addAttribute("UserName", z);
+                object1.addAttribute("Email", mail);
+                object1.addAttribute("Password", pass);
+                
                 return "index";
             } else {
                 object1.addAttribute("flag", 0);

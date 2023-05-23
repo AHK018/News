@@ -25,12 +25,29 @@ public class MainController {
         return "index";
     }
     
+    @RequestMapping(value = "/index1", method = RequestMethod.POST)
+    public String Homepage1(
+            @RequestParam("UserName")String UserName,
+            @RequestParam("Email")String Email,
+            @RequestParam("Password")String Password,
+            Model object1) 
+    {
+        
+        ind.information(object1);
+        object1.addAttribute("flag",1);
+        object1.addAttribute("UserName",UserName);
+        object1.addAttribute("Email",Email);
+        object1.addAttribute("Password",Password);
+
+        return "index";
+    }
+    
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String Loginpage(@RequestParam("Username") String Username, @RequestParam("Password") String Password, org.springframework.ui.Model object1) {
-        object1.addAttribute("Username", Username);
+    public String Loginpage(@RequestParam("Email") String Email, @RequestParam("Password") String Password, Model object1) {
+        
         ind.information(object1);
         LoginSignUp log=new LoginSignUp();
-        log.LoginSignUp(object1, Username, Password);
+        log.LoginSignUp(object1, Email, Password);
         return "index";
     }
     

@@ -509,6 +509,16 @@
             width: 100%;
             background-color: #606060;
         }
+        button{
+           background-color: transparent;
+           background: transparent;
+           border: 0px;
+           
+        }
+        button:focus{
+            border: 0px;
+            
+        }
 
 
     </style>
@@ -670,11 +680,11 @@
             <div class="icon4" onclick="dropmenu()">
                 <div class="icon">
                     <div class="dropdown">
-                        <img src="https://ui-avatars.com/api/?background=random&name=${Username}" alt="Image" onclick="toggleDropdown()" style="border-radius:50%; height :37px; width:37px;">
+                        <img src="https://ui-avatars.com/api/?background=random&name=${UserName}" alt="Image" onclick="toggleDropdown()" style="border-radius:50%; height :37px; width:37px;">
                         <div class="dropdown-content">
                             <table>
                                  <tr>
-                                    <td><a href="#" id="name">${Username}</a></td>
+                                    <td><a href="#" id="name">${UserName}</a></td>
                                 </tr>
                                 <tr>
                                     <td><a href="#">Sign Out</a></td>
@@ -696,8 +706,11 @@
 
             <div class="nav-options">
                 <ul>
-                    <form action="index" method="post">
-                        <li><a class="active">Home</a></li>
+                    <form action="index1" method="POST">
+                        <input type="hidden" name="UserName" value="${UserName}"/>
+                        <input type="hidden" name="Email" value="${Email}"/>
+                        <input type="hidden" name="Password" value="${Password}"/>
+                        <button> <li><a class="active">Home</a></li></button>
                     </form>
                     <li><a href="try1">For you</a></li>
                     <li><a href="#">Following</a></li>

@@ -670,7 +670,7 @@
             <div class="icon4" onclick="dropmenu()">
                 <div class="icon">
                     <div class="dropdown">
-                        <img src="https://ui-avatars.com/api/?background=random&name=shubham+Hagawane" alt="Image" onclick="toggleDropdown()" style="border-radius:50%; height :37px; width:37px;">
+                        <img src="https://ui-avatars.com/api/?background=random&name=${Username}" alt="Image" onclick="toggleDropdown()" style="border-radius:50%; height :37px; width:37px;">
                         <div class="dropdown-content">
                             <table>
                                  <tr>
@@ -696,7 +696,9 @@
 
             <div class="nav-options">
                 <ul>
-                    <li><a href="index" class="active">Home</a></li>
+                    <form action="index" method="post">
+                        <li><a class="active">Home</a></li>
+                    </form>
                     <li><a href="try1">For you</a></li>
                     <li><a href="#">Following</a></li>
                     <li><a href="#">News Showcase</a></li>

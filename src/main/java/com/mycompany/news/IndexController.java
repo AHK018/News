@@ -30,7 +30,7 @@ public class IndexController {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 l1.add(rs.getString("id"));
-                l2.add(rs.getString("heding"));
+                l2.add(rs.getString("hading"));
                 l3.add(rs.getString("containt"));
                 l4.add(rs.getString("link"));
             }

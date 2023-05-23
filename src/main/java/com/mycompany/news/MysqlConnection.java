@@ -19,7 +19,7 @@ public class MysqlConnection {
                 
                 Class.forName("com.mysql.cj.jdbc.Driver");            
                 System.out.println("Connecting to a selected database...");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+                con = DriverManager.getConnection("jdbc:mysql://database-1.crz3orvnmv7e.us-east-1.rds.amazonaws.com:3306/News", "admin", "rootadmin");
                 System.out.println("Connected database successfully...");
 //                con.close();
             } catch (Exception e) {

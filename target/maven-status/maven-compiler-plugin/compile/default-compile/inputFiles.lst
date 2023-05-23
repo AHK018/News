@@ -1,5 +1,7 @@
 /Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/MainController.java
 /Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/OrqcleConnection.java
+/Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/NewsPosting.java
+/Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/ControllerBLOB.java
 /Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/MysqlConnection.java
 /Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/LoginSignUp.java
 /Users/amey/NetBeansProjects/News/src/main/java/com/mycompany/news/IndexController.java

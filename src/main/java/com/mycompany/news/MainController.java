@@ -40,6 +40,8 @@ public class MainController {
         object1.addAttribute("Username", Username);
         ind.information(object1);
         object1.addAttribute("flag", 1);
+        LoginSignUp log=new LoginSignUp();
+        log.LoginSignUp(object1, Username, Password,Email);
         return "index";
     }
 }

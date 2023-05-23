@@ -150,12 +150,12 @@
                     </p>
                 </form>
             </div>
-            <div class="register-form" method="post">
-                <form action="register" methos="post">
+            <div class="register-form" method="POST">
+                <form action="register" method="POST">
                     <h2 style="color:black;">Register</h2>
-                    <input type="text" placeholder="Username">
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
+                    <input type="text" placeholder="Username" name="Username">
+                    <input type="email" placeholder="Email" name="Email">
+                    <input type="password" placeholder="Password" name="Password">
                     <button type="submit">Register</button>
                     <p class="login-link" style="color:black;">
                         Already have an account? 

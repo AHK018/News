@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
  * @author amey
  */
 public class LoginSignUp {
+    
     public String LoginSignUp(Model object1,String str,String pass)
     {
         try {
@@ -42,5 +43,18 @@ public class LoginSignUp {
         }
         object1.addAttribute("flag", 0);
         return "index";
+    }
+    
+    public void LoginSignUp(Model object1,String str,String pass,String mail)
+    {
+        try {
+            PreparedStatement stmt = con.prepareStatement("insert into user values(?,?,?)");
+            stmt.setString(1, str);
+            stmt.setString(2, mail); 
+            stmt.setString(3, pass); 
+            stmt.executeUpdate();
+        } catch (Exception k) {
+            System.out.println(k.getMessage());
+        }
     }
 }

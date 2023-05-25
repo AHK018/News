@@ -48,17 +48,22 @@
     <input type="text" id="post-date" name="b" placeholder="Enter post date..." required>
 
     <label for="description">Description:</label>
-    <textarea id="description" name="c" placeholder="Enter description..." required></textarea>
-
+    <input type="text" name="c" placeholder="Enter description..." required>
+    
+    
     <select name="null">
-        <option>world</option>
-        <option>local news</option>
-        <option>top stories</option>
-        <option>latest post</option>
+        <option>India</option>
+        <option>World</option>
+        <option>Local News</option>
+        <option>Top Stories</option>
+        <option>Latest Post</option>
     </select>
     
     <label for="image">Image:</label>
     <input id="images" type="file" style="margin-left: 40px; padding: 10px;" accept="image/png, image/jpeg" name="d"/>
+
+    <label for="link">Description:</label>
+    <input type="text" name="e" placeholder="Link" required>
 
     <input type="submit" value="Submit">
   </form>

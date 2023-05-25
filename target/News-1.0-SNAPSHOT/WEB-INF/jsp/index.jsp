@@ -1,4 +1,10 @@
 <%@page import="java.util.List"%>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.io.ByteArrayOutputStream" %>
+<%@ page import="java.util.Base64" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,8 +23,8 @@
             scroll-behavior: smooth;
 
         }
-        
-        
+
+
         .flex{
             background-color:	#303030 ;
         }
@@ -181,9 +187,9 @@
         .breif-intro span{
             font-size: 12px;
             color: rgb(129, 138, 146);
-             position: relative;
+            position: relative;
             top:7vh;
-           
+
         }
         .weather-bar{
             display: inline-flex;
@@ -302,7 +308,7 @@
         .special-container{
             position: relative;
             height: 100%; /* Set container height */
-            overflow-y: auto;  
+            overflow-y: auto;
             overflow-x: hidden;
             scroll-behavior: smooth;
             background-color: #202020;
@@ -330,7 +336,7 @@
         .specials::-webkit-scrollbar{
             width: 0;
         }
-    
+
 
         .special-cards {
             position: relative;
@@ -383,55 +389,53 @@
             padding-bottom: 10px;
             background: rgba(19, 1, 26, 0);
         }
-        
+
         /* Media queries for different screen sizes */
-    @media screen and (max-width: 768px) {
-        main {
-            grid-template-columns: 1fr;
+        @media screen and (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .main-card {
+                max-width: 100%;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            .card-i {
+                width: 100%;
+            }
         }
 
-        .main-card {
-            max-width: 100%;
-            margin-left: 0;
-            padding-left: 0;
+        @media screen and (max-width: 480px) {
+            .main-card {
+                top: 20px;
+            }
         }
-
-        .card-i {
-            width: 100%;
-        }
-    }
-
-    @media screen and (max-width: 480px) {
-        .main-card {
-            top: 20px;
-        }
-    }
     </style>
-     <% 
-            int j=(int) request.getAttribute("flag");
-            if(j==1)
-            {
-        %>
-        <header>
+    <%
+        int j = (int) request.getAttribute("flag");
+        if (j == 1) {
+    %>
+    <header>
         <%@include file="TopNavBar_1.jsp" %>
-        </header>
-        <% }
-        else{
-        %>
-        <header>
-            <%@include file="TopNavBar.jsp" %>
-        </header>
-        <% } %>
+    </header>
+    <% } else {
+    %>
+    <header>
+        <%@include file="TopNavBar.jsp" %>
+    </header>
+    <% } %>
     <body class='flex'>
 
-<%
+        <%
             List<String> l1 = (List<String>) request.getAttribute("l1");
             List<String> l2 = (List<String>) request.getAttribute("l2");
             List<String> l3 = (List<String>) request.getAttribute("l3");
             List<String> l4 = (List<String>) request.getAttribute("l4");
-
             int i = l1.size() - 1;
         %>
+
 
 
         <main>
@@ -449,60 +453,191 @@
 
                 <span class="container-head">Top Stories ></span>
                 <div class="card-i">
+                    <%
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+
+                            //                                Connection con = DriverManager.getConnection("jdbc:mysql://database-1.crz3orvnmv7e.us-east-1.rds.amazonaws.com:3306/News", "admin", "rootadmin");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+
+                            PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1");
+                            ResultSet rs = stmt.executeQuery();
+                            System.out.println("this reach");
+                            int ij = 0;
+                            while (rs.next()) {
+                                Blob imageBlob = rs.getBlob("image");
+                                InputStream imageStream = imageBlob.getBinaryStream();
+                                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                byte[] buffer = new byte[4096];
+                                int n = 0;
+                                while (-1 != (n = imageStream.read(buffer))) {
+                                    outputStream.write(buffer, 0, n);
+                                }
+                                byte[] imageBytes = outputStream.toByteArray();
+                                ij++;
+                    %>
+
+
+
                     <div class="left-content">
-                        <div class="img-dsc"></div>
+                        <div class="img-dsc">
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 150px; height: 150px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                        </div>
+                        <span class="main-brand"><% out.print(l1.get(i)); %></span>
                         <span class="main-brand"><% out.print(l2.get(i)); %></span>
                         <a href="<% out.print(l4.get(i)); %>"><span class="card-headline"><% out.print(l3.get(i));%></span></a>
                     </div>
+
+                    <%
+                            }
+                        } catch (Exception k) {
+                            System.out.println(k.getMessage());
+                        }
+                    %>
                     <div class="pub-card-content">
+
                         <div class="pub-name-card">
-                            <span class="pub-name"><% out.print(l2.get(i-1)); %></span>
-                            <a href="<% out.print(l4.get(i-1)); %>"><span class="pub-desc"><% out.print(l3.get(i-1));%></span></a>
+                            <span class="pub-name"><% out.print(l1.get(i - 3)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 3)); %></span>
+                            <a href="<% out.print(l4.get(i-3)); %>"><span class="pub-desc"><% out.print(l3.get(i - 3));%></span></a>
                         </div>
+
                         <div class="pub-name-card">
-                            <span class="pub-name"><% out.print(l2.get(i-2)); %></span>
-                            <a href="<% out.print(l4.get(i-2)); %>"> <span class="pub-desc"></span><% out.print(l3.get(i-2));%></div></a>
+                            <span class="pub-name"><% out.print(l1.get(i - 4)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 4)); %></span>
+                            <a href="<% out.print(l4.get(i-4)); %>"><span class="pub-desc"><% out.print(l3.get(i - 4));%></span></a>
+                        </div>
+                        
                         <div class="pub-name-card">
-                            <span class="pub-name"><% out.print(l2.get(i-3)); %></span>
-                            <a href="<% out.print(l4.get(i-3)); %>"><span class="pub-desc"><% out.print(l3.get(i-3));%></span></div></a>
+                            <span class="pub-name"><% out.print(l1.get(i - 5)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 5)); %></span>
+                            <a href="<% out.print(l4.get(i-5)); %>"><span class="pub-desc"><% out.print(l3.get(i - 5));%></span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="card-i">
+                    <%
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+
+                            //                                Connection con = DriverManager.getConnection("jdbc:mysql://database-1.crz3orvnmv7e.us-east-1.rds.amazonaws.com:3306/News", "admin", "rootadmin");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+
+                            PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1 OFFSET 1");
+                            ResultSet rs = stmt.executeQuery();
+                            System.out.println("this reach");
+                            int ij = 0;
+                            while (rs.next()) {
+                                Blob imageBlob = rs.getBlob("image");
+                                InputStream imageStream = imageBlob.getBinaryStream();
+                                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                byte[] buffer = new byte[4096];
+                                int n = 0;
+                                while (-1 != (n = imageStream.read(buffer))) {
+                                    outputStream.write(buffer, 0, n);
+                                }
+                                byte[] imageBytes = outputStream.toByteArray();
+                                ij++;
+                    %>
+                    <div class="left-content">
+                        <div class="img-dsc">
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 150px; height: 150px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                        </div>
+                        <span class="main-brand"><% out.print(l1.get(i-1)); %></span>
+                        <span class="main-brand"><% out.print(l2.get(i-1)); %></span>
+                        <a href=<% out.print(l4.get(i-1)); %>><span class="card-headline"><% out.print(l3.get(i-1));%></span></a>
+                    </div>
+                    <%
+                            }
+                        } catch (Exception k) {
+                            System.out.println(k.getMessage());
+                        }
+                    %>
+                    <div class="pub-card-content">
+
+                        <div class="pub-name-card">
+                            <span class="pub-name"><% out.print(l1.get(i - 6)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 6)); %></span>
+                            <a href="<% out.print(l4.get(i-6)); %>"><span class="pub-desc"><% out.print(l3.get(i - 6));%></span></a>
+                        </div>
+
+                        <div class="pub-name-card">
+                            <span class="pub-name"><% out.print(l1.get(i - 7)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 7)); %></span>
+                            <a href="<% out.print(l4.get(i-7)); %>"><span class="pub-desc"><% out.print(l3.get(i - 7));%></span></a>
+                        </div>
+                        
+                        <div class="pub-name-card">
+                            <span class="pub-name"><% out.print(l1.get(i - 8)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 8)); %></span>
+                            <a href="<% out.print(l4.get(i-8)); %>"><span class="pub-desc"><% out.print(l3.get(i - 8));%></span></a>
+                        </div>
+                        
                     </div>
                 </div>
 
                 <div class="card-i">
-                    <div class="left-content">
-                        <div class="img-dsc"></div>
-                        <span class="main-brand">?? BBC</span>
-                        <span class="card-headline">Lorem ipsum dolor sit amet consecteturadipisicing elit. Illum praesentium eveniet laudantium minima cupiditate fuga odio nam laboriosam ipsum porro deserunt, consequuntur corrupti, commodi veniam impedit vel ab ullam incidunt rem labore ad! Ipsum assumenda voluptates impedit doloremque officiis, rerum sint eveniet tenetur nam molestiae commodi asperiores, voluptas voluptate explicabo esse, maxime corporis consectetur officia odit. Ab quibusdam sit sint aliquam aut velit impedit ad illo numquam reiciendis qui earum expedita laborum, voluptas exercitationem amet deserunt a, minima ipsum quae. Omnis consequuntur incidunt doloribus, voluptas nam maiores vel adipisci consectetur perferendis praesentium. Illum, quo quod tempore commodi cumque quasi vitae! ipsum dolor sit amet consectetur adipisicing. ipsum dolor sit. amet consectetur adipisicing.</span>
-                    </div>
-                    <div class="pub-card-content">
-                        <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptatibus odit eligendi voluptate iusto culpa iste nemo error saepe nulla.</span></div>
-                        <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae accusamus quas necessitatibus, dolor dolorum similique.</span></div>
-                        <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sed placeat consectetur fugiat, quis quia quidem dolorem omnis quibusdam reiciendis eos fugit unde blanditiis sunt!</span></div>
-                    </div>
-                </div>
+                    <%
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
 
-                <div class="card-i">
+                            //                                Connection con = DriverManager.getConnection("jdbc:mysql://database-1.crz3orvnmv7e.us-east-1.rds.amazonaws.com:3306/News", "admin", "rootadmin");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+
+                            PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1 OFFSET 2");
+                            ResultSet rs = stmt.executeQuery();
+                            System.out.println("this reach");
+                            int ij = 0;
+                            while (rs.next()) {
+                                Blob imageBlob = rs.getBlob("image");
+                                InputStream imageStream = imageBlob.getBinaryStream();
+                                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                byte[] buffer = new byte[4096];
+                                int n = 0;
+                                while (-1 != (n = imageStream.read(buffer))) {
+                                    outputStream.write(buffer, 0, n);
+                                }
+                                byte[] imageBytes = outputStream.toByteArray();
+                                ij++;
+                    %>
                     <div class="left-content">
-                        <div class="img-dsc"></div>
-                        <span class="main-brand">?? BBC</span>
-                        <span class="card-headline">Lorem ipsum dolor sit amet consecteturadipisicing elit. Illum praesentium eveniet laudantium minima cupiditate fuga odio nam laboriosam ipsum porro deserunt, consequuntur corrupti, commodi veniam impedit vel ab ullam incidunt rem labore ad! Ipsum assumenda voluptates impedit doloremque officiis, rerum sint eveniet tenetur nam molestiae commodi asperiores, voluptas voluptate explicabo esse, maxime corporis consectetur officia odit. Ab quibusdam sit sint aliquam aut velit impedit ad illo numquam reiciendis qui earum expedita laborum, voluptas exercitationem amet deserunt a, minima ipsum quae. Omnis consequuntur incidunt doloribus, voluptas nam maiores vel adipisci consectetur perferendis praesentium. Illum, quo quod tempore commodi cumque quasi vitae! ipsum dolor sit amet consectetur adipisicing. ipsum dolor sit. amet consectetur adipisicing.</span>
+                        <div class="img-dsc">
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 150px; height: 150px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                        </div>
+                        <span class="main-brand"><% out.print(l1.get(i-2)); %></span>
+                        <span class="main-brand"><% out.print(l2.get(i-2)); %></span>
+                        <a href="<% out.print(l4.get(i-2)); %>"><span class="card-headline"><% out.print(l3.get(i-2));%></span></a>
                     </div>
+                    <%
+                            }
+                        } catch (Exception k) {
+                            System.out.println(k.getMessage());
+                        }
+                    %>
                     <div class="pub-card-content">
+
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptatibus odit eligendi voluptate iusto culpa iste nemo error saepe nulla.</span></div>
+                            <span class="pub-name"><% out.print(l1.get(i - 9)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 9)); %></span>
+                            <a href="<% out.print(l4.get(i-9)); %>"><span class="pub-desc"><% out.print(l3.get(i - 9));%></span></a>
+                        </div>
+
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae accusamus quas necessitatibus, dolor dolorum similique.</span></div>
+                            <span class="pub-name"><% out.print(l1.get(i - 10)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 10)); %></span>
+                            <a href="<% out.print(l4.get(i-10)); %>"><span class="pub-desc"><% out.print(l3.get(i - 10));%></span></a>
+                        </div>
+                        
                         <div class="pub-name-card">
-                            <span class="pub-name">Brand-name</span>
-                            <span class="pub-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sed placeat consectetur fugiat, quis quia quidem dolorem omnis quibusdam reiciendis eos fugit unde blanditiis sunt!</span></div>
+                            <span class="pub-name"><% out.print(l1.get(i - 11)); %></span>
+                            <span class="pub-name"><% out.print(l2.get(i - 11)); %></span>
+                            <a href="<% out.print(l4.get(i-11)); %>"><span class="pub-desc"><% out.print(l3.get(i - 11));%></span></a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

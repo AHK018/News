@@ -77,17 +77,17 @@ public class MainController {
             @RequestParam("b") String b,
             @RequestParam("c") String c,
             @RequestParam("d") CommonsMultipartFile file,
+            @RequestParam("e") String e,
             Model object1
     ) {
 
         try {
-            System.out.println(a + b + c);
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image) VALUES (?,?,?,?);");
+            System.out.println(a + b + c+ e);
+            
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
             stmt.setString(1, a);
             stmt.setString(2, b);//1 specifies the first parameter in the query  
             stmt.setString(3, c);
-
             InputStream inputStream = null;
 
             if (file != null) {
@@ -97,17 +97,15 @@ public class MainController {
             if (inputStream != null) {
                 stmt.setBlob(4, inputStream);
             }
+            stmt.setString(5, e);
             int row = stmt.executeUpdate();
             if (row > 0) {
                 object1.addAttribute("a", a);
                 object1.addAttribute("b", b);
                 object1.addAttribute("c", c);
+                object1.addAttribute("e", e);
                 return "print";
             }
-            
-//                object1.addAttribute("a", a);
-//                object1.addAttribute("b", b);
-//                object1.addAttribute("c", c);
                 
                 return "print";
             
@@ -115,6 +113,6 @@ public class MainController {
         } catch (Exception K) {
             System.out.println(K.getMessage());
         }
-        return "print";
+        return "error";
     }
 }

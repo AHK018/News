@@ -78,13 +78,15 @@ public class MainController {
             @RequestParam("c") String c,
             @RequestParam("d") CommonsMultipartFile file,
             @RequestParam("e") String e,
+            @RequestParam("f") String f,
             Model object1
     ) {
 
         try {
             System.out.println(a + b + c+ e);
-            
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+            if(f.equals("Yop Stories"))
+            {
+               PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
             stmt.setString(1, a);
             stmt.setString(2, b);//1 specifies the first parameter in the query  
             stmt.setString(3, c);
@@ -105,9 +107,24 @@ public class MainController {
                 object1.addAttribute("c", c);
                 object1.addAttribute("e", e);
                 return "print";
+            } 
             }
+            else if(f.equals("Local News"))
+            {
                 
-                return "print";
+            }
+            else if(f.equals("India"))
+            {
+                
+            }
+            else if(f.equals("World"))
+            {
+                
+            }
+            else{
+                // latest post
+                
+            }
             
 
         } catch (Exception K) {

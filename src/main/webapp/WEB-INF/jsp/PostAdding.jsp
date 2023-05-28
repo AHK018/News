@@ -51,7 +51,7 @@
     <input type="text" name="c" placeholder="Enter description..." required>
     
     
-    <select name="null">
+    <select name="f">
         <option>India</option>
         <option>World</option>
         <option>Local News</option>

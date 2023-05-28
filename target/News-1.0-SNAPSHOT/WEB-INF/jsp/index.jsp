@@ -412,6 +412,41 @@
                 top: 20px;
             }
         }
+        .weatherWidget{
+            display: inline-flex;
+            position: relative;
+            left: 44.5vw;
+            top: 2vh;
+            background-color: rgba(71, 64, 64, 0.687);
+            border-radius: 10px;
+        }
+        .visualcrossing-wx-widget {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: rgb(12, 11, 11);
+            font-weight: 400;
+        }
+
+        .visualcrossing-wx-widget .period {
+            font-size: 1.1em;
+            padding: 2px 1px;
+            color: red;
+            font-weight: 600;
+        }
+        .visualcrossing-wx-widget .maxt {
+            font-size: 1.1em;
+            padding: 2px 1px;
+            color: blue;
+        }
+        .visualcrossing-wx-widget .forecast .period .maxt{
+            color: blue;
+        }
+        .visualcrossing-wx-widget .forecast .period .date{
+            color: blue;
+        }
+        .visualcrossing-wx-widget .period .icon{
+            color:blue;
+        }
+        
     </style>
     <%
         int j = (int) request.getAttribute("flag");
@@ -447,8 +482,8 @@
             List<String> l16 = new ArrayList<String>();
             int i = l1.size() - 1;
             int op = 0;
-            int op1=0;
-            int op2=0;
+            int op1 = 0;
+            int op2 = 0;
         %>
 
 
@@ -459,9 +494,29 @@
                 <div class="widges">
                     <div class="breif-intro">Your briefing <span> Sunday, 14 May</span>
                     </div>
-                    <div class="weather-bar">
-                    </div>
+                    <div class="weatherWidget"></div>
                 </div>
+                <script>
+                    window.weatherWidgetConfig = window.weatherWidgetConfig || [];
+                    window.weatherWidgetConfig.push({
+                        selector: ".weatherWidget",
+                        apiKey: "457FTU2B3ERXE52MQS2LF8YH7", //Sign up for your personal key
+                        location: "India", //Enter an address
+                        unitGroup: "metric", //"us" or "metric"
+                        forecastDays: 5, //how many days forecast to show
+                        title: " India", //optional title to show in the 
+                        showTitle: true,
+                        showConditions: true
+                    });
+
+                    (function () {
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://www.visualcrossing.com/widgets/forecast-simple/weather-forecast-widget-simple.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+
                 <span class="container-head">Top Stories ></span>
                 <div class="card-i">
                     <%                        try {
@@ -472,7 +527,7 @@
 
                             PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1");
                             ResultSet rs = stmt.executeQuery();
-                            System.out.println("this reach");
+
                             int ij = 0;
                             while (rs.next()) {
                                 Blob imageBlob = rs.getBlob("image");
@@ -539,7 +594,7 @@
 
                             PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1 OFFSET 1");
                             ResultSet rs = stmt.executeQuery();
-                            System.out.println("this reach");
+
                             int ij = 0;
                             while (rs.next()) {
                                 Blob imageBlob = rs.getBlob("image");
@@ -600,7 +655,7 @@
 
                             PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM top_stories ORDER BY id DESC LIMIT 1 OFFSET 2");
                             ResultSet rs = stmt.executeQuery();
-                            System.out.println("this reach");
+
                             int ij = 0;
                             while (rs.next()) {
                                 Blob imageBlob = rs.getBlob("image");
@@ -691,7 +746,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM local_news ORDER BY id DESC LIMIT 1");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -705,17 +760,17 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
@@ -734,7 +789,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM local_news ORDER BY id DESC LIMIT 1 OFFSET 1");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -748,17 +803,17 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
@@ -777,7 +832,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM local_news ORDER BY id DESC LIMIT 1 OFFSET 2");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -791,17 +846,17 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
@@ -813,25 +868,24 @@
     <div class="special-container">
 
         <span class="special-title">Your Topics</span>
-<%
+        <%
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+                PreparedStatement stmt = con.prepareStatement("select * from india");
 
-                    try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
-                        PreparedStatement stmt = con.prepareStatement("select * from india");
-
-                        ResultSet rs = stmt.executeQuery();
-                        while (rs.next()) {
-                            l9.add(rs.getString("heading"));
-                            l10.add(rs.getString("post_date"));
-                            l11.add(rs.getString("description"));
-                            l12.add(rs.getString("link"));
-                        }
-                        op1 = l9.size() - 1;
-                    } catch (Exception k) {
-                        System.out.println(k.getMessage());
-                    }
-                %>
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    l9.add(rs.getString("heading"));
+                    l10.add(rs.getString("post_date"));
+                    l11.add(rs.getString("description"));
+                    l12.add(rs.getString("link"));
+                }
+                op1 = l9.size() - 1;
+            } catch (Exception k) {
+                System.out.println(k.getMessage());
+            }
+        %>
         <div class="specials">
 
             <div class="special-cards">
@@ -841,7 +895,7 @@
                     <div class="short-brand">?? <%out.print(l10.get(op1));%></div>
                     <div class="consist-short">
                         <a href="<%out.print(l12.get(op1));%>"><span class="special-desc"><%out.print(l11.get(op1));%></span></a>
-                         <%
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -850,7 +904,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM india ORDER BY id DESC LIMIT 1 OFFSET 0");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -864,26 +918,26 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
                 <div class="sec-short-news">
-                    <div class="short-brand">?? <%out.print(l9.get(op1-1));%></div>
-                    <div class="short-brand">?? <%out.print(l10.get(op1-1));%></div>
+                    <div class="short-brand">?? <%out.print(l9.get(op1 - 1));%></div>
+                    <div class="short-brand">?? <%out.print(l10.get(op1 - 1));%></div>
                     <div class="consist-short">
-                        <a href="<%out.print(l12.get(op1-1));%>"><span class="special-desc"><%out.print(l11.get(op1-1));%></span></a>
-                        <%
+                        <a href="<%out.print(l12.get(op1 - 1));%>"><span class="special-desc"><%out.print(l11.get(op1 - 1));%></span></a>
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -892,7 +946,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM india ORDER BY id DESC LIMIT 1 OFFSET 1");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -906,26 +960,26 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
                 <div class="sec-short-news">
-                    <div class="short-brand">?? <%out.print(l9.get(op1-2));%></div>
-                    <div class="short-brand">?? <%out.print(l10.get(op1-2));%></div>
+                    <div class="short-brand">?? <%out.print(l9.get(op1 - 2));%></div>
+                    <div class="short-brand">?? <%out.print(l10.get(op1 - 2));%></div>
                     <div class="consist-short">
-                        <a href="<%out.print(l12.get(op1-2));%>"><span class="special-desc"><%out.print(l11.get(op1-2));%></span></a>
-                        <%
+                        <a href="<%out.print(l12.get(op1 - 2));%>"><span class="special-desc"><%out.print(l11.get(op1 - 2));%></span></a>
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -934,7 +988,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM india ORDER BY id DESC LIMIT 1 OFFSET 2");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -948,43 +1002,42 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
             </div>
 
-           
 
-<%
 
-                    try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
-                        PreparedStatement stmt = con.prepareStatement("select * from world");
+            <%
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+                    PreparedStatement stmt = con.prepareStatement("select * from world");
 
-                        ResultSet rs = stmt.executeQuery();
-                        while (rs.next()) {
-                            l13.add(rs.getString("heading"));
-                            l14.add(rs.getString("post_date"));
-                            l15.add(rs.getString("description"));
-                            l16.add(rs.getString("link"));
-                        }
-                        op2 = l13.size() - 1;
-                    } catch (Exception k) {
-                        System.out.println(k.getMessage());
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        l13.add(rs.getString("heading"));
+                        l14.add(rs.getString("post_date"));
+                        l15.add(rs.getString("description"));
+                        l16.add(rs.getString("link"));
                     }
-                %>
+                    op2 = l13.size() - 1;
+                } catch (Exception k) {
+                    System.out.println(k.getMessage());
+                }
+            %>
             <div class="special-cards">
                 <span class="title-special-card">World ></span>
                 <div class="sec-short-news">
@@ -992,7 +1045,7 @@
                     <div class="short-brand">?? <%out.print(l14.get(op2));%></div>
                     <div class="consist-short">
                         <a href="<%out.print(l16.get(op2));%>"><span class="special-desc"><%out.print(l15.get(op2));%></span></a>
-                        <%
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -1001,7 +1054,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM world ORDER BY id DESC LIMIT 1 OFFSET 0");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -1015,26 +1068,26 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
                 <div class="sec-short-news">
-                    <div class="short-brand">?? <%out.print(l13.get(op2-1));%></div>
-                    <div class="short-brand">?? <%out.print(l14.get(op2-1));%></div>
+                    <div class="short-brand">?? <%out.print(l13.get(op2 - 1));%></div>
+                    <div class="short-brand">?? <%out.print(l14.get(op2 - 1));%></div>
                     <div class="consist-short">
-                        <a href="<%out.print(l16.get(op2-1));%>"><span class="special-desc"><%out.print(l15.get(op2-1));%></span></a>
-                        <%
+                        <a href="<%out.print(l16.get(op2 - 1));%>"><span class="special-desc"><%out.print(l15.get(op2 - 1));%></span></a>
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -1043,7 +1096,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM world ORDER BY id DESC LIMIT 1 OFFSET 1");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+                                    System.out.println("");
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -1057,26 +1110,26 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>
                 <div class="sec-short-news">
-                    <div class="short-brand">?? <%out.print(l13.get(op2-2));%></div>
-                    <div class="short-brand">?? <%out.print(l14.get(op2-2));%></div>
+                    <div class="short-brand">?? <%out.print(l13.get(op2 - 2));%></div>
+                    <div class="short-brand">?? <%out.print(l14.get(op2 - 2));%></div>
                     <div class="consist-short">
-                        <a href="<%out.print(l16.get(op2-2));%>"><span class="special-desc"><%out.print(l15.get(op2-2));%></span></a>
-                        <%
+                        <a href="<%out.print(l16.get(op2 - 2));%>"><span class="special-desc"><%out.print(l15.get(op2 - 2));%></span></a>
+                            <%
                                 try {
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -1085,7 +1138,7 @@
 
                                     PreparedStatement stmt = con.prepareStatement("SELECT (image) FROM world ORDER BY id DESC LIMIT 1 OFFSET 2");
                                     ResultSet rs = stmt.executeQuery();
-                                    System.out.println("this reach");
+
                                     int ij = 0;
                                     while (rs.next()) {
                                         Blob imageBlob = rs.getBlob("image");
@@ -1099,17 +1152,17 @@
                                         byte[] imageBytes = outputStream.toByteArray();
                                         ij++;
                             %>
-                            <div class="short-img">
+                        <div class="short-img">
 
-                                <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
+                            <img class="card-img-top" alt="..." align="center" margin="40px" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes)%>"/>
 
-                            </div>
-                            <%
-                                    }   
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
+                        </div>
+                        <%
                                 }
-                            %>
+                            } catch (Exception k) {
+                                System.out.println(k.getMessage());
+                            }
+                        %>
                     </div>
                     <div class="short-coverage"><i class="las la-window-maximize"></i></div>
                 </div>

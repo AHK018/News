@@ -351,7 +351,7 @@
         }
 
 
-        /*2*/
+        /*/2/*/
         .dropdown1 {
             position: relative;
             display: inline-block;
@@ -363,7 +363,7 @@
             right: 0vw;
             top: 5.3vh;
             width: 950%;
-            height: 1300%;
+            height: 1100%;
             font-size: 15px;
             padding: 1px;
             z-index: 1;
@@ -427,7 +427,7 @@
 
 
 
-        /*3*/
+        /*/3/*/
 
         .dropdown2 {
             position: relative;
@@ -464,7 +464,7 @@
             display: block;
         }
 
-        /*4*/
+        /*/4/*/
         .dropdown3 {
             position: relative;
             display: inline-block;
@@ -510,14 +510,14 @@
             background-color: #606060;
         }
         button{
-           background-color: transparent;
-           background: transparent;
-           border: 0px;
-           
+            background-color: transparent;
+            background: transparent;
+            border: 0px;
+
         }
         button:focus{
             border: 0px;
-            
+
         }
 
 
@@ -683,8 +683,11 @@
                         <img src="https://ui-avatars.com/api/?background=random&name=${UserName}" alt="Image" onclick="toggleDropdown()" style="border-radius:50%; height :37px; width:37px;">
                         <div class="dropdown-content">
                             <table>
-                                 <tr>
+                                <tr>
                                     <td><a href="#" id="name">${UserName}</a></td>
+                                </tr>
+                                <tr>
+                                    <%@ include file="Login/profile.jsp" %> 
                                 </tr>
                                 <tr>
                                     <td><a href="#">Sign Out</a></td>

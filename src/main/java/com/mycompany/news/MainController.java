@@ -48,10 +48,15 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String Loginpage(@RequestParam("Email") String Email, @RequestParam("Password") String Password, Model object1) {
+        if (Email.equals("Admin@123") && Password.equals("Admin")) {
+            object1.addAttribute("select", "top_stories");
+            return "Admin/list";
+        };
 
         ind.information(object1);
         LoginSignUp log = new LoginSignUp();
         log.LoginSignUp(object1, Email, Password);
+
         return "index";
     }
 
@@ -84,7 +89,7 @@ public class MainController {
 
         try {
             System.out.println(a + b + c + e);
-            if(f.equals("Top Stories")) {
+            if (f.equals("Top Stories")) {
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
                 stmt.setString(1, a);
                 stmt.setString(2, b);//1 specifies the first parameter in the query  
@@ -207,5 +212,31 @@ public class MainController {
             System.out.println(K.getMessage());
         }
         return "error";
+    }
+
+    @RequestMapping(value = "/index2", method = RequestMethod.POST)
+    public String Homepage2(
+            @RequestParam("UserName") String UserName,
+            @RequestParam("Email") String Email,
+            @RequestParam("Password") String Password,
+            Model object1) {
+        try {
+            System.out.println("username: " + UserName);
+            System.out.println("password:" + Password);
+            PreparedStatement stmt = con.prepareStatement("update user set name=?, password=? where email=?");
+            stmt.setString(1, UserName);
+            stmt.setString(2, Password);
+            stmt.setString(3, Email);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.toString();
+        }
+        ind.information(object1);
+        object1.addAttribute("flag", 1);
+        object1.addAttribute("UserName", UserName);
+        object1.addAttribute("Email", Email);
+        object1.addAttribute("Password", Password);
+
+        return "index";
     }
 }

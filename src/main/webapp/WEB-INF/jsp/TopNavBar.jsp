@@ -352,7 +352,7 @@
         }
 
 
-        /*2*/
+        /*/2/*/
         .dropdown1 {
             position: relative;
             display: inline-block;
@@ -364,7 +364,7 @@
             right: 0vw;
             top: 5.3vh;
             width: 950%;
-            height: 1300%;
+            height: 1100%;
             font-size: 15px;
             padding: 1px;
             z-index: 1;
@@ -428,7 +428,7 @@
 
 
 
-        /*3*/
+        /*/3/*/
 
         .dropdown2 {
             position: relative;
@@ -465,7 +465,7 @@
             display: block;
         }
 
-        /*4*/
+        /*/4/*/
         .dropdown3 {
             position: relative;
             display: inline-block;
@@ -680,7 +680,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><a href="#">Sign Out</a></td>
+                                    <td><a href="#">Settings</a></td>
                                 </tr>
                             </table>
                         </div>
@@ -797,11 +797,11 @@
                 dropdown.querySelector(".dropdown-content3").classList.remove("show3");
             }
         });
-        
-        
-        
-        
-        
+
+
+
+
+
 
     </script>
 

@@ -1,4 +1,5 @@
 com/mycompany/news/OrqcleConnection.class
+com/mycompany/news/AdminController.class
 com/mycompany/news/LoginSignUp.class
 com/mycompany/news/MysqlConnection.class
 com/mycompany/news/MainController.class

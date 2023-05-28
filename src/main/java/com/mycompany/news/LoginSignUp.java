@@ -38,7 +38,8 @@ public class LoginSignUp {
                 object1.addAttribute("Password", pass);
                 
                 return "index";
-            } else {
+            }
+            else {
                 object1.addAttribute("flag", 0);
                 return "index";
             }

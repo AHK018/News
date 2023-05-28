@@ -83,49 +83,125 @@ public class MainController {
     ) {
 
         try {
-            System.out.println(a + b + c+ e);
-            if(f.equals("Yop Stories"))
-            {
-               PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
-            stmt.setString(1, a);
-            stmt.setString(2, b);//1 specifies the first parameter in the query  
-            stmt.setString(3, c);
-            InputStream inputStream = null;
+            System.out.println(a + b + c + e);
+            if(f.equals("Top Stories")) {
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO top_stories (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+                stmt.setString(1, a);
+                stmt.setString(2, b);//1 specifies the first parameter in the query  
+                stmt.setString(3, c);
+                InputStream inputStream = null;
 
-            if (file != null) {
-                inputStream = file.getInputStream();
-            }
+                if (file != null) {
+                    inputStream = file.getInputStream();
+                }
 
-            if (inputStream != null) {
-                stmt.setBlob(4, inputStream);
-            }
-            stmt.setString(5, e);
-            int row = stmt.executeUpdate();
-            if (row > 0) {
-                object1.addAttribute("a", a);
-                object1.addAttribute("b", b);
-                object1.addAttribute("c", c);
-                object1.addAttribute("e", e);
-                return "print";
-            } 
-            }
-            else if(f.equals("Local News"))
-            {
-                
-            }
-            else if(f.equals("India"))
-            {
-                
-            }
-            else if(f.equals("World"))
-            {
-                
-            }
-            else{
+                if (inputStream != null) {
+                    stmt.setBlob(4, inputStream);
+                }
+                stmt.setString(5, e);
+                int row = stmt.executeUpdate();
+                if (row > 0) {
+                    object1.addAttribute("a", a);
+                    object1.addAttribute("b", b);
+                    object1.addAttribute("c", c);
+                    object1.addAttribute("e", e);
+                    return "print";
+                }
+            } else if (f.equals("Local News")) {
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO local_news (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+                stmt.setString(1, a);
+                stmt.setString(2, b);//1 specifies the first parameter in the query  
+                stmt.setString(3, c);
+                InputStream inputStream = null;
+
+                if (file != null) {
+                    inputStream = file.getInputStream();
+                }
+
+                if (inputStream != null) {
+                    stmt.setBlob(4, inputStream);
+                }
+                stmt.setString(5, e);
+                int row = stmt.executeUpdate();
+                if (row > 0) {
+                    object1.addAttribute("a", a);
+                    object1.addAttribute("b", b);
+                    object1.addAttribute("c", c);
+                    object1.addAttribute("e", e);
+                    return "print";
+                }
+            } else if (f.equals("India")) {
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO india (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+                stmt.setString(1, a);
+                stmt.setString(2, b);//1 specifies the first parameter in the query  
+                stmt.setString(3, c);
+                InputStream inputStream = null;
+
+                if (file != null) {
+                    inputStream = file.getInputStream();
+                }
+
+                if (inputStream != null) {
+                    stmt.setBlob(4, inputStream);
+                }
+                stmt.setString(5, e);
+                int row = stmt.executeUpdate();
+                if (row > 0) {
+                    object1.addAttribute("a", a);
+                    object1.addAttribute("b", b);
+                    object1.addAttribute("c", c);
+                    object1.addAttribute("e", e);
+                    return "print";
+                }
+            } else if (f.equals("World")) {
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO world (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+                stmt.setString(1, a);
+                stmt.setString(2, b);//1 specifies the first parameter in the query  
+                stmt.setString(3, c);
+                InputStream inputStream = null;
+
+                if (file != null) {
+                    inputStream = file.getInputStream();
+                }
+
+                if (inputStream != null) {
+                    stmt.setBlob(4, inputStream);
+                }
+                stmt.setString(5, e);
+                int row = stmt.executeUpdate();
+                if (row > 0) {
+                    object1.addAttribute("a", a);
+                    object1.addAttribute("b", b);
+                    object1.addAttribute("c", c);
+                    object1.addAttribute("e", e);
+                    return "print";
+                }
+            } else {
                 // latest post
-                
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO latest_post (heading, post_date, description, image, link) VALUES (?,?,?,?,?);");
+                stmt.setString(1, a);
+                stmt.setString(2, b);//1 specifies the first parameter in the query  
+                stmt.setString(3, c);
+                InputStream inputStream = null;
+
+                if (file != null) {
+                    inputStream = file.getInputStream();
+                }
+
+                if (inputStream != null) {
+                    stmt.setBlob(4, inputStream);
+                }
+                stmt.setString(5, e);
+                int row = stmt.executeUpdate();
+                if (row > 0) {
+                    object1.addAttribute("a", a);
+                    object1.addAttribute("b", b);
+                    object1.addAttribute("c", c);
+                    object1.addAttribute("e", e);
+                    return "print";
+                }
+
             }
-            
 
         } catch (Exception K) {
             System.out.println(K.getMessage());

@@ -19,9 +19,7 @@ public class IndexController {
 
     public void information(Model object1) {
         try {
-
             PreparedStatement stmt = con.prepareStatement("select * from top_stories");
-
             List<String> l1 = new ArrayList<String>();
             List<String> l2 = new ArrayList<String>();
             List<String> l3 = new ArrayList<String>();

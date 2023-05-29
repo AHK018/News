@@ -690,7 +690,7 @@
                                     <%@ include file="Login/profile.jsp" %> 
                                 </tr>
                                 <tr>
-                                    <td><a href="#">Sign Out</a></td>
+                                    <td><a href="index">Sign Out</a></td>
                                 </tr>
                             </table>
                         </div>

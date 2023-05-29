@@ -132,6 +132,31 @@ public class AdminController {
                 System.out.println(k.getMessage());
             }
         }
+        else if (select.equals("user")) {
+            try {
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                System.out.println("Connecting to a selected database...");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+                PreparedStatement stmt = con.prepareStatement("select * from user where id=?");
+                stmt.setInt(1, Integer.parseInt(id));
+                String l = "";
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    l = rs.getString("id");
+                }
+                if (l.equals(id)) {
+                    stmt = con.prepareStatement("delete from user where id=?");
+                    stmt.setInt(1, Integer.parseInt(id));
+                    stmt.executeUpdate();
+                } else {
+                    return "error";
+                }
+
+            } catch (Exception k) {
+                System.out.println(k.getMessage());
+            }
+        }
         else
         {
             return "error";

@@ -86,6 +86,7 @@
                 <option>world</option>
                 <option>local_News</option>
                 <option>top_stories</option>
+                <option>user</option>
             </select>
             <button type="submit" value="click">Click</button>
         </form>
@@ -177,7 +178,28 @@
                 } catch (Exception k) {
                     System.out.println(k.getMessage());
                 }
-            } else {
+            } 
+            else if (value.equals("user")) {
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    System.out.println("Connecting to a selected database...");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/news", "root", "Amey@123");
+                    PreparedStatement stmt = con.prepareStatement("select * from user");
+
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        l1.add(rs.getString("id"));
+                        l2.add(rs.getString("name"));
+                        l3.add(rs.getString("email"));
+                        l4.add(rs.getString("password"));
+                        l5.add(rs.getString("id"));
+                    }
+
+                } catch (Exception k) {
+                    System.out.println(k.getMessage());
+                }
+            }
+            else {
 
             }
         %>

@@ -446,6 +446,9 @@
         .visualcrossing-wx-widget .period .icon{
             color:blue;
         }
+        .weatherWidget .visualcrossing-wx-widget .title{
+            color: blue;
+        }
         
     </style>
     <%

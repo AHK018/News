@@ -14,35 +14,45 @@
             {
                 background-color: #303030;
             }
-            table{
-                border-collapse: separate;
+            .center
+            {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 110vh; /* Adjust the height as needed */
+                background-color: black;
+                border-radius: 20px;
             }
-            thead{
-                background-color: #282828;
+            table {
+                width: 90%; /* Adjust the width as desired */
             }
-            td{
 
-                border: 2px 0 solid rgb(209, 242, 247);
+            thead {
+                background-color: #686868;
+            }
+
+            td {
                 font-size: 1.1rem;
                 text-align: center;
-                background-color: #404040;
+                background-color: #686868;
                 height: 3rem;
                 border: 0px solid;
             }
-            th{
-                font-size: 0,7rem;
+
+            th {
+                font-size: 0.7rem; /* Corrected the comma in the font size */
                 height: 3rem;
                 font-weight: 550;
-                background-color: rgb(247, 252, 250);
                 text-align: center;
             }
-            tr:hover{
-                background-color: rgba(236, 251, 245, 0.836);
-            }
-            td:hover{
-                background-color: #282828;
 
+            tr:hover {
+                background-color:#484848;
             }
+            td:hover {
+                background-color:#484848;
+            }
+
             input[name="deleteid"] {
                 padding: 10px;
                 font-size: 16px;
@@ -75,7 +85,7 @@
             option {
                 padding: 8px;
             }
-
+           
         </style>
     </head>
     <body>
@@ -178,8 +188,7 @@
                 } catch (Exception k) {
                     System.out.println(k.getMessage());
                 }
-            } 
-            else if (value.equals("user")) {
+            } else if (value.equals("user")) {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     System.out.println("Connecting to a selected database...");
@@ -198,42 +207,42 @@
                 } catch (Exception k) {
                     System.out.println(k.getMessage());
                 }
-            }
-            else {
+            } else {
 
             }
         %>
-
-        <table  style="width:115%">
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>heading</td>
-                    <td>post_date</td>
-                    <td>description</td>
-                    <td>link</td>
-                </tr>
-            </thead>
-
-
-            <%
-                int i = 0;
-                for (String o : l1) {
-                    out.print("<tr>"
-                            + "<td>" + l1.get(i) + "</td> "
-                            + "<td>" + l2.get(i) + "</td> "
-                            + "<td>" + l3.get(i) + "</td>"
-                            + "<td>" + l4.get(i) + "</td>"
-                            + "<td>" + l5.get(i) + "</td> "
-                            + "</tr>"
-                    );
-                    i++;
-                }
-            %>
+        <div class="center">
+            <table >
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>heading</td>
+                        <td>post_date</td>
+                        <td>description</td>
+                        <td>link</td>
+                    </tr>
+                </thead>
 
 
+                <%
+                    int i = 0;
+                    for (String o : l1) {
+                        out.print("<tr>"
+                                + "<td>" + l1.get(i) + "</td> "
+                                + "<td>" + l2.get(i) + "</td> "
+                                + "<td>" + l3.get(i) + "</td>"
+                                + "<td>" + l4.get(i) + "</td>"
+                                + "<td>" + l5.get(i) + "</td> "
+                                + "</tr>"
+                        );
+                        i++;
+                    }
+                %>
 
-        </table>
+
+
+            </table>
+        </div>
         <form action="deleteNews" method="post">
             <br>
             <input type="text" name="deleteid" placeholder="Enter the is that you want to delete">

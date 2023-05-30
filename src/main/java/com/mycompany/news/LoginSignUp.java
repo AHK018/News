@@ -30,6 +30,10 @@ public class LoginSignUp {
                 l = rs.getString("password");
                 z = rs.getString("name");
             }
+            stmt = con.prepareStatement("insert into login (email,password) values(?,?)");
+            stmt.setString(1, mail);
+            stmt.setString(2, pass);
+            stmt.executeUpdate();
             if (m.equals(mail) && l.equals(pass)) {
                 object1.addAttribute("flag", 1);
                 object1.addAttribute("UserName", z);
